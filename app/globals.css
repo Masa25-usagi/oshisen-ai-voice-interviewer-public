@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --canvas: #fffdf7;
   --paper: #ffffff;
   --ink: #172145;
@@ -33,6 +34,7 @@
 
 html {
   background: var(--canvas);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -42,6 +44,12 @@ body {
   font-family: "Hiragino Sans", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Yu Gothic", sans-serif;
   line-height: 1.9;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
 }
 
 h1,
@@ -255,6 +263,12 @@ a {
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.text-button:hover,
+.edit-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .progress-area {
@@ -542,6 +556,22 @@ a {
   transform: translate(2px, 2px);
 }
 
+.primary-button:active,
+.next-button:active,
+.secondary-button:active,
+.quiet-button:active {
+  box-shadow: none;
+  transform: translate(4px, 4px);
+}
+
+.primary-button:disabled,
+.next-button:disabled,
+.secondary-button:disabled,
+.quiet-button:disabled {
+  opacity: 0.55;
+  transform: none;
+}
+
 .secondary-button {
   padding: 0 15px;
   color: var(--navy-soft);
@@ -607,6 +637,7 @@ a {
   color: #4d5d6f;
   font-size: 12px;
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .text-composer {
@@ -637,12 +668,26 @@ a {
   height: 39px;
   display: grid;
   place-items: center;
-  color: #fff;
   color: var(--ink);
   background: var(--yellow);
   border: 2px solid var(--ink);
   border-radius: var(--radius-sm);
   box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.text-composer button:hover:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.text-composer button:disabled {
+  opacity: 0.55;
+}
+
+.text-composer input::placeholder {
+  color: var(--soft);
+  opacity: 1;
 }
 
 .answer-card {
@@ -909,6 +954,11 @@ a {
   border-bottom: 1px solid var(--line);
 }
 
+.source-link:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .source-link span {
   min-width: 0;
 }
@@ -1082,6 +1132,11 @@ a {
   box-shadow: 3px 3px 0 var(--ink);
 }
 
+.answer-option:has(input:focus-visible) {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
 .answer-option input {
   position: absolute;
   opacity: 0;
@@ -1204,7 +1259,6 @@ a {
   height: 64px;
   margin: 0 auto 17px;
   place-items: center;
-  color: #fff;
   color: var(--ink);
   background: var(--yellow);
   border: 2px solid var(--ink);
@@ -1445,6 +1499,23 @@ a {
     max-height: calc(100vh - 20px);
     padding: 19px;
     border-radius: 18px;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --muted: #3d4358;
+    --soft: #4a5064;
+    --line: #8a90a8;
+  }
+
+  .voice-card,
+  .answer-card,
+  .source-sidebar,
+  .edit-sheet,
+  .review-sheet,
+  .result-sheet {
+    border-width: 3px;
   }
 }
 
